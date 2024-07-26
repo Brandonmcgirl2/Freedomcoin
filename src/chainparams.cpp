@@ -18,7 +18,7 @@
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
-
+/*
 static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesisOutputScript, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
     CMutableTransaction txNew;
@@ -45,7 +45,7 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
     const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
-
+/*
 /**
  * Main network
  */
@@ -106,8 +106,13 @@ public:
         m_assumed_blockchain_size = 40;
         m_assumed_chain_state_size = 2;
 
-        genesis = CreateGenesisBlock(1691625600, 47345, 0x1e0ffff0, 1, 50 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
+        // genesis = CreateGenesisBlock(1691625600, 47345, 0x1e0ffff0, 1, 50 * COIN);
+        // consensus.hashGenesisBlock = genesis.GetHash();
+
+      //  std::cout << "MainNet Genesis Block: " << consensus.hashGenesisBlock.ToString() << std::endl;
+       // std::cout << "MainNet Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
+
+
         assert(consensus.hashGenesisBlock == uint256S("0x00000fca8cd0cd39861c73ebf1b4a9a94fb353ff7add3129e150660048e5f6d9"));
         assert(genesis.hashMerkleRoot == uint256S("0x8a226aa30c73f1c30afb2f722ed72ae41bfc34fcf9649efcf1e7a1412ef77708"));
 
@@ -162,7 +167,7 @@ public:
         consensus.nSubsidyHalvingInterval = 840000;
         consensus.BIP16Height = 0; // always enforce P2SH BIP16 on testnet
         consensus.BIP34Height = 76;
-        consensus.BIP34Hash = uint256S("0x8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573");
+        consensus.BIP34Hash = uint256S("8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573");
         consensus.BIP65Height = 76; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
         consensus.BIP66Height = 76; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
         consensus.CSVHeight = 6048; // 00000000025e930139bac5c6c31a403776da130831ab85be56578f3fa75369bb
@@ -205,9 +210,13 @@ public:
         m_assumed_blockchain_size = 4;
         m_assumed_chain_state_size = 1;
 
-        genesis = CreateGenesisBlock(1691625600, 47345, 0x1e0ffff0, 1, 50 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000fca8cd0cd39861c73ebf1b4a9a94fb353ff7add3129e150660048e5f6d9"));
+       // genesis = CreateGenesisBlock(1486949366, 293345, 0x1e0ffff0, 1, 50 * COIN);
+       // consensus.hashGenesisBlock = genesis.GetHash();
+
+       // std::cout << "TestNet Genesis Block: " << consensus.hashGenesisBlock.ToString() << std::endl;
+       // std::cout << "TestNet Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
+
+        assert(consensus.hashGenesisBlock == uint256S("0x8a436ab63c71e2c9662ec9739ff182c6ae8e604b06ef49d5acafa016b51d490d"));
         assert(genesis.hashMerkleRoot == uint256S("0x8a226aa30c73f1c30afb2f722ed72ae41bfc34fcf9649efcf1e7a1412ef77708"));
 
         vFixedSeeds.clear();
@@ -234,9 +243,10 @@ public:
 
         checkpointData = {
             {
-                {300, uint256S("54e6075affe658d6574e04c9245a7920ad94dc5af8f5b37fd9a094e317769740")},
-                {2056, uint256S("17748a31ba97afdc9a4f86837a39d287e3e7c7290a08a1d816c5969c78a83289")},
-                {2352616, uint256S("7540437e7bf7831fa872ba8cfae85951a1e5dbb04c201b6f5def934d9299f3c2")}
+                {0, uint256S("0x8a436ab63c71e2c9662ec9739ff182c6ae8e604b06ef49d5acafa016b51d490d")},
+                //{300, uint256S("0x")},
+               //{2056, uint256S("0x")},
+                //{2352616, uint256S("0x")}
             }
         };
 
@@ -248,7 +258,6 @@ public:
         };
     }
 };
-
 
 /**
  * Regression test
@@ -303,10 +312,14 @@ public:
 
         UpdateActivationParametersFromArgs(args);
 
-        genesis = CreateGenesisBlock(1296688602, 0, 0x207fffff, 1, 50 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9"));
-        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+       // genesis = CreateGenesisBlock(1691625600, 47345, 0x1e0ffff0, 1, 50 * COIN);
+       // consensus.hashGenesisBlock = genesis.GetHash();
+
+       // std::cout << "RegTest Genesis Block: " << consensus.hashGenesisBlock.ToString() << std::endl;
+       // std::cout << "RegTest Merkle Root: " << genesis.hashMerkleRoot.ToString() << std::endl;
+
+        assert(consensus.hashGenesisBlock == uint256S("0x00000fca8cd0cd39861c73ebf1b4a9a94fb353ff7add3129e150660048e5f6d9"));
+        assert(genesis.hashMerkleRoot == uint256S("0x8a226aa30c73f1c30afb2f722ed72ae41bfc34fcf9649efcf1e7a1412ef77708"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
@@ -318,7 +331,7 @@ public:
 
         checkpointData = {
             {
-                {0, uint256S("530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9")},
+                {0, uint256S("0x00000fca8cd0cd39861c73ebf1b4a9a94fb353ff7add3129e150660048e5f6d9")},
             }
         };
 
